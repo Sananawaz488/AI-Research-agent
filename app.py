@@ -29,13 +29,14 @@ with st.sidebar:
         [
             DEFAULT_MODEL,
             "groq/openai/gpt-oss-20b",
-            "groq/llama-3.3-70b-versatile",
+            "groq/openai/gpt-oss-120b",
             "groq/llama-3.1-8b-instant",
         ],
         index=0,
-        help="gpt-oss-120b is a strong, reasoning-capable open model on "
-        "Groq. gpt-oss-20b is smaller/faster; llama-3.1-8b-instant is "
-        "the fastest but least thorough.",
+        help="llama-3.3-70b-versatile has the highest free-tier token "
+        "limit on Groq (12,000/min), so it hits rate limits least often "
+        "for this tool-using agent. gpt-oss-120b is stronger but only "
+        "has an 8,000/min limit on the free tier.",
     )
 
     st.markdown("---")
