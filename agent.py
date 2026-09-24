@@ -10,6 +10,31 @@ from tools.search_tool import DuckDuckGoSearchTool
 
 DEFAULT_MODEL = "groq/openai/gpt-oss-120b"
 
+# --- Workaround for a known CrewAI + Groq bug -----------------------------
+# When CrewAI talks to Groq through LiteLLM, it sometimes adds a
+# "cache_breakpoint" field (meant for providers like Anthropic/OpenAI that
+# support prompt caching). Groq's API rejects this field with:
+#   "property 'cache_breakpoint' is unsupported"
+# We patch litellm.completion to strip that field before the request goes
+# out. This is safe to remove once CrewAI/LiteLLM fix this upstream.
+import litellm
+
+_original_litellm_completion = litellm.completion
+
+
+def _patched_litellm_completion(*args, **kwargs):
+    kwargs.pop("is_litellm", None)
+    messages = kwargs.get("messages")
+    if messages:
+        for m in messages:
+            if isinstance(m, dict):
+                m.pop("cache_breakpoint", None)
+    return _original_litellm_completion(*args, **kwargs)
+
+
+litellm.completion = _patched_litellm_completion
+# ---------------------------------------------------------------------------
+
 
 def build_crew(topic: str, groq_api_key: str, model: str = DEFAULT_MODEL) -> Crew:
     # CrewAI's LLM class talks to Groq directly - no extra wrapper library needed.
