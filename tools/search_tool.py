@@ -1,7 +1,7 @@
 """
 A simple, free web search tool for our CrewAI agent, built on the
 `ddgs` package (the current, maintained version of the old
-`duckduckgo_search` package - no API key required).
+`duckduckgo_search` package — no API key required).
 """
 
 from crewai.tools import BaseTool
@@ -18,8 +18,8 @@ class DuckDuckGoSearchTool(BaseTool):
 
     def _run(self, query: str) -> str:
         try:
-            results = DDGS().text(query, max_results=5)
-        except Exception as exc:
+            results = DDGS().text(query, max_results=3)
+        except Exception as exc:  # keep the agent alive even if search fails
             return f"Search failed for query '{query}': {exc}"
 
         if not results:
