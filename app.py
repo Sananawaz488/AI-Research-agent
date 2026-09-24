@@ -29,14 +29,14 @@ with st.sidebar:
         [
             DEFAULT_MODEL,
             "groq/openai/gpt-oss-20b",
-            "groq/openai/gpt-oss-120b",
-            "groq/llama-3.1-8b-instant",
+            "groq/qwen/qwen3.6-27b",
         ],
         index=0,
-        help="llama-3.3-70b-versatile has the highest free-tier token "
-        "limit on Groq (12,000/min), so it hits rate limits least often "
-        "for this tool-using agent. gpt-oss-120b is stronger but only "
-        "has an 8,000/min limit on the free tier.",
+        help="These are Groq's current active models (as of late 2026). "
+        "gpt-oss-120b is strong but has a tighter free-tier rate limit; "
+        "gpt-oss-20b is faster with a higher limit. Groq periodically "
+        "retires older models, so check console.groq.com/docs/models if "
+        "one of these ever stops working.",
     )
 
     st.markdown("---")
