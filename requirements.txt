@@ -1,4 +1,5 @@
 crewai[litellm]>=0.140.0
+litellm>=1.0.0
 ddgs>=9.0.0
 streamlit>=1.38.0
 python-dotenv>=1.0.0
