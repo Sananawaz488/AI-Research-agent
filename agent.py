@@ -8,7 +8,7 @@ and one Task (research the topic and write a report).
 from crewai import Agent, Task, Crew, Process, LLM
 from tools.search_tool import DuckDuckGoSearchTool
 
-DEFAULT_MODEL = "groq/llama-3.3-70b-versatile"
+DEFAULT_MODEL = "groq/openai/gpt-oss-120b"
 
 # --- Workaround for a known CrewAI + Groq bug -----------------------------
 # When CrewAI talks to Groq through LiteLLM, it sometimes adds a
@@ -38,7 +38,7 @@ litellm.completion = _patched_litellm_completion
 
 def build_crew(topic: str, groq_api_key: str, model: str = DEFAULT_MODEL) -> Crew:
     # CrewAI's LLM class talks to Groq directly - no extra wrapper library needed.
-    llm = LLM(model=model, api_key=groq_api_key, temperature=0.3)
+    llm = LLM(model=model, api_key=groq_api_key, temperature=0.3, max_retries=5)
 
     search_tool = DuckDuckGoSearchTool()
 
