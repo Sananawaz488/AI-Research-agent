@@ -8,7 +8,7 @@ and one Task (research the topic and write a report).
 from crewai import Agent, Task, Crew, Process, LLM
 from tools.search_tool import DuckDuckGoSearchTool
 
-DEFAULT_MODEL = "groq/openai/gpt-oss-120b"
+DEFAULT_MODEL = "groq/llama-3.3-70b-versatile"
 
 # --- Workaround for a known CrewAI + Groq bug -----------------------------
 # When CrewAI talks to Groq through LiteLLM, it sometimes adds a
